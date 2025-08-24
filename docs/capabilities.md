@@ -51,10 +51,10 @@ wppermission()->createCapability(
 
 ```bash
 # Basic capability
-wp wppermission capability:create manage_products
+wp borps permission:capability-create manage_products
 
 # With metadata
-wp wppermission capability:create view_analytics \
+wp borps permission:capability-create view_analytics \
   --description="View analytics dashboard" \
   --group="analytics"
 ```
@@ -100,18 +100,18 @@ $analytics_caps = $manager->getByGroup('analytics');
 
 ```bash
 # List all capabilities
-wp wppermission capability:list
+wp borps permission:capability-list
 
 # Filter by type
-wp wppermission capability:list --type=custom
-wp wppermission capability:list --type=default
+wp borps permission:capability-list --type=custom
+wp borps permission:capability-list --type=default
 
 # Filter by group
-wp wppermission capability:list --group=analytics
+wp borps permission:capability-list --group=analytics
 
 # Different output formats
-wp wppermission capability:list --format=json
-wp wppermission capability:list --format=csv
+wp borps permission:capability-list --format=json
+wp borps permission:capability-list --format=csv
 ```
 
 ## Capability Information
@@ -146,10 +146,10 @@ $users = $user_manager->getUsersWithCapability('manage_products');
 
 ```bash
 # Detailed capability information
-wp wppermission capability:info manage_products
+wp borps permission:capability-info manage_products
 
 # Usage statistics
-wp wppermission capability:stats manage_products
+wp borps permission:capability-stats manage_products
 ```
 
 ## Capability Validation
@@ -194,10 +194,10 @@ if ($manager->delete('old_capability')) {
 
 ```bash
 # Delete with confirmation
-wp wppermission capability:delete old_capability
+wp borps permission:capability-delete old_capability
 
 # Skip confirmation
-wp wppermission capability:delete old_capability --yes
+wp borps permission:capability-delete old_capability --yes
 ```
 
 **Note**: You cannot delete WordPress default capabilities.
@@ -259,17 +259,17 @@ function grant_advanced_capability($user_id) {
 // Grant capability for specific operation
 function perform_admin_task() {
     $user_id = get_current_user_id();
-    
+
     // Store current capabilities
     $had_cap = can('manage_options', $user_id);
-    
+
     if (!$had_cap) {
         grant('manage_options', $user_id);
     }
-    
+
     // Perform admin operation
     do_admin_stuff();
-    
+
     // Restore previous state
     if (!$had_cap) {
         revoke('manage_options', $user_id);
@@ -315,7 +315,7 @@ add_action('admin_menu', function() {
     if (can('view_analytics')) {
         add_menu_page(
             'Analytics',
-            'Analytics', 
+            'Analytics',
             'read', // Lower requirement, checked above
             'analytics',
             'show_analytics_page'

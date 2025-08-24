@@ -23,9 +23,9 @@ class UserCommand extends \WP_CLI_Command
      *
      * ## EXAMPLES
      *
-     *     wp wppermission user:grant admin manage_products
-     *     wp wppermission user:grant 123 view_analytics
-     *     wp wppermission user:grant user@example.com edit_others_posts
+     *     wp borps permission:user-grant admin manage_products
+     *     wp borps permission:user-grant 123 view_analytics
+     *     wp borps permission:user-grant user@example.com edit_others_posts
      *
      * @when after_wp_load
      */
@@ -71,8 +71,8 @@ class UserCommand extends \WP_CLI_Command
      *
      * ## EXAMPLES
      *
-     *     wp wppermission user:revoke admin delete_users
-     *     wp wppermission user:revoke 123 manage_products
+     *     wp borps permission:user-revoke admin delete_users
+     *     wp borps permission:user-revoke 123 manage_products
      *
      * @when after_wp_load
      */
@@ -121,8 +121,8 @@ class UserCommand extends \WP_CLI_Command
      *
      * ## EXAMPLES
      *
-     *     wp wppermission user:assign-role admin shop_manager
-     *     wp wppermission user:assign-role 123 editor --replace
+     *     wp borps permission:user-assign-role admin shop_manager
+     *     wp borps permission:user-assign-role 123 editor --replace
      *
      * @when after_wp_load
      */
@@ -186,8 +186,8 @@ class UserCommand extends \WP_CLI_Command
      *
      * ## EXAMPLES
      *
-     *     wp wppermission user:remove-role admin editor
-     *     wp wppermission user:remove-role 123 shop_manager
+     *     wp borps permission:user-remove-role admin editor
+     *     wp borps permission:user-remove-role 123 shop_manager
      *
      * @when after_wp_load
      */
@@ -236,8 +236,8 @@ class UserCommand extends \WP_CLI_Command
      *
      * ## EXAMPLES
      *
-     *     wp wppermission user:info admin
-     *     wp wppermission user:info 123 --show-capabilities --format=json
+     *     wp borps permission:user-info admin
+     *     wp borps permission:user-info 123 --show-capabilities --format=json
      *
      * @when after_wp_load
      */
@@ -292,8 +292,8 @@ class UserCommand extends \WP_CLI_Command
      *
      * ## EXAMPLES
      *
-     *     wp wppermission user:compare admin editor
-     *     wp wppermission user:compare 123 456 --format=json
+     *     wp borps permission:user-compare admin editor
+     *     wp borps permission:user-compare 123 456 --format=json
      *
      * @when after_wp_load
      */
@@ -349,9 +349,9 @@ class UserCommand extends \WP_CLI_Command
      *
      * ## EXAMPLES
      *
-     *     wp wppermission user:bulk-grant manage_products --users="admin,editor,123"
-     *     wp wppermission user:bulk-grant view_analytics --role=editor
-     *     wp wppermission user:bulk-grant manage_products --role=shop_manager --dry-run
+     *     wp borps permission:user-bulk-grant manage_products --users="admin,editor,123"
+     *     wp borps permission:user-bulk-grant view_analytics --role=editor
+     *     wp borps permission:user-bulk-grant manage_products --role=shop_manager --dry-run
      *
      * @when after_wp_load
      */
@@ -433,8 +433,8 @@ class UserCommand extends \WP_CLI_Command
      *
      * ## EXAMPLES
      *
-     *     wp wppermission user:bulk-assign shop_manager "admin,editor,123"
-     *     wp wppermission user:bulk-assign contributor "user1,user2" --dry-run
+     *     wp borps permission:user-bulk-assign shop_manager "admin,editor,123"
+     *     wp borps permission:user-bulk-assign contributor "user1,user2" --dry-run
      *
      * @when after_wp_load
      */

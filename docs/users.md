@@ -85,15 +85,15 @@ if ($manager->userCan(123, 'manage_products')) {
 
 ```bash
 # Grant capability to specific user
-wp wppermission user:grant admin manage_products
-wp wppermission user:grant 123 view_analytics
-wp wppermission user:grant user@example.com edit_others_posts
+wp borps permission:user-grant admin manage_products
+wp borps permission:user-grant 123 view_analytics
+wp borps permission:user-grant user@example.com edit_others_posts
 
 # Bulk grant to multiple users
-wp wppermission user:bulk-grant manage_products --users="admin,editor,123"
+wp borps permission:user-bulk-grant manage_products --users="admin,editor,123"
 
 # Grant to all users with specific role
-wp wppermission user:bulk-grant view_analytics --role=editor
+wp borps permission:user-bulk-grant view_analytics --role=editor
 ```
 
 ## Revoking Capabilities
@@ -117,8 +117,8 @@ foreach ($capabilities as $cap) {
 
 ```bash
 # Revoke capability from user
-wp wppermission user:revoke admin delete_users
-wp wppermission user:revoke 123 manage_products
+wp borps permission:user-revoke admin delete_users
+wp borps permission:user-revoke 123 manage_products
 ```
 
 **Note**: This only removes directly granted capabilities, not those inherited from roles.
@@ -159,18 +159,18 @@ $current_roles = $user->roles;
 
 ```bash
 # Assign role to user
-wp wppermission user:assign-role admin shop_manager
-wp wppermission user:assign-role 123 editor
+wp borps permission:user-assign-role admin shop_manager
+wp borps permission:user-assign-role 123 editor
 
 # Replace all existing roles
-wp wppermission user:assign-role admin shop_manager --replace
+wp borps permission:user-assign-role admin shop_manager --replace
 
 # Remove role from user
-wp wppermission user:remove-role admin editor
-wp wppermission user:remove-role 123 shop_manager
+wp borps permission:user-remove-role admin editor
+wp borps permission:user-remove-role 123 shop_manager
 
 # Bulk assign role to multiple users
-wp wppermission user:bulk-assign shop_manager "admin,editor,123"
+wp borps permission:user-bulk-assign shop_manager "admin,editor,123"
 ```
 
 ## User Information and Analysis
@@ -200,7 +200,7 @@ $comparison = $manager->compareUsers(123, 456);
 
 // Returns comparison data:
 // - user_1_total: User 1's total capabilities
-// - user_2_total: User 2's total capabilities  
+// - user_2_total: User 2's total capabilities
 // - shared_count: Number of shared capabilities
 // - shared_capabilities: Array of shared capabilities
 // - user_1_only: Capabilities only User 1 has
@@ -211,13 +211,13 @@ $comparison = $manager->compareUsers(123, 456);
 
 ```bash
 # Get detailed user information
-wp wppermission user:info admin
-wp wppermission user:info 123 --show-capabilities
-wp wppermission user:info user@example.com --format=json
+wp borps permission:user-info admin
+wp borps permission:user-info 123 --show-capabilities
+wp borps permission:user-info user@example.com --format=json
 
 # Compare two users
-wp wppermission user:compare admin editor
-wp wppermission user:compare 123 456 --format=json
+wp borps permission:user-compare admin editor
+wp borps permission:user-compare 123 456 --format=json
 ```
 
 ## Bulk Operations
@@ -257,12 +257,12 @@ $shop_managers = $manager->getUsersByRole('shop_manager');
 
 ```bash
 # Bulk operations with dry-run
-wp wppermission user:bulk-grant manage_products --role=editor --dry-run
-wp wppermission user:bulk-assign shop_manager "user1,user2,user3" --dry-run
+wp borps permission:user-bulk-grant manage_products --role=editor --dry-run
+wp borps permission:user-bulk-assign shop_manager "user1,user2,user3" --dry-run
 
 # Execute bulk operations
-wp wppermission user:bulk-grant view_analytics --role=editor
-wp wppermission user:bulk-assign contributor "new_user1,new_user2"
+wp borps permission:user-bulk-grant view_analytics --role=editor
+wp borps permission:user-bulk-assign contributor "new_user1,new_user2"
 ```
 
 ## Advanced User Management
@@ -274,21 +274,21 @@ wp wppermission user:bulk-assign contributor "new_user1,new_user2"
 function grant_conditional_permissions($user_id) {
     $user = get_user_by('id', $user_id);
     $manager = wppermission()->getUserPermissionManager();
-    
+
     // Grant based on registration date
     $registration = strtotime($user->user_registered);
     if ($registration < strtotime('-1 year')) {
         $manager->grantCapability($user_id, 'veteran_user_perks');
     }
-    
+
     // Grant based on post count
     $post_count = count_user_posts($user_id);
     if ($post_count > 100) {
         $manager->grantCapability($user_id, 'prolific_author');
     }
-    
+
     // Grant based on role combinations
-    if ($manager->userHasRole($user_id, 'editor') && 
+    if ($manager->userHasRole($user_id, 'editor') &&
         $manager->userHasRole($user_id, 'shop_manager')) {
         $manager->grantCapability($user_id, 'hybrid_manager');
     }
@@ -301,25 +301,25 @@ function grant_conditional_permissions($user_id) {
 function analyze_user_permissions($user_id) {
     $manager = wppermission()->getUserPermissionManager();
     $summary = $manager->getUserPermissionSummary($user_id);
-    
+
     echo "=== Permission Analysis for User {$user_id} ===\n";
     echo "Username: {$summary['username']}\n";
     echo "Total Capabilities: {$summary['capability_count']}\n";
     echo "Roles: " . implode(', ', $summary['roles']) . "\n";
-    
+
     // Direct vs inherited capabilities
     $direct_count = count($summary['direct_capabilities']);
     $role_count = count($summary['role_capabilities']);
-    
+
     echo "Direct Capabilities: {$direct_count}\n";
     echo "Role-based Capabilities: {$role_count}\n";
-    
+
     // Unique direct capabilities
     $unique_direct = array_diff(
         array_keys($summary['direct_capabilities']),
         array_keys($summary['role_capabilities'])
     );
-    
+
     if (!empty($unique_direct)) {
         echo "Unique Direct Capabilities:\n";
         foreach ($unique_direct as $cap) {
@@ -333,7 +333,7 @@ function analyze_user_permissions($user_id) {
 
 ```php
 class UserPermissionHistory {
-    
+
     public static function logCapabilityGrant($user_id, $capability) {
         $log_entry = [
             'action' => 'grant',
@@ -342,16 +342,16 @@ class UserPermissionHistory {
             'timestamp' => current_time('mysql'),
             'admin_user' => get_current_user_id()
         ];
-        
+
         $history = get_user_meta($user_id, 'permission_history', true) ?: [];
         $history[] = $log_entry;
         update_user_meta($user_id, 'permission_history', $history);
     }
-    
+
     public static function getHistory($user_id) {
         return get_user_meta($user_id, 'permission_history', true) ?: [];
     }
-    
+
     public static function clearHistory($user_id) {
         delete_user_meta($user_id, 'permission_history');
     }
@@ -371,13 +371,13 @@ add_action('wp_permission_capability_granted', function($user_id, $capability) {
 // Auto-assign permissions to new users
 add_action('user_register', function($user_id) {
     $manager = wppermission()->getUserPermissionManager();
-    
+
     // Default role assignment
     $manager->setRole($user_id, 'basic_user');
-    
+
     // Grant trial capabilities
     $manager->grantCapability($user_id, 'trial_access');
-    
+
     // Schedule capability removal
     wp_schedule_single_event(
         time() + (7 * DAY_IN_SECONDS),
@@ -394,13 +394,13 @@ add_action('user_register', function($user_id) {
 add_action('profile_update', function($user_id) {
     $user = get_user_by('id', $user_id);
     $manager = wppermission()->getUserPermissionManager();
-    
+
     // Grant based on bio length
     $bio_length = strlen($user->description);
     if ($bio_length > 500) {
         $manager->grantCapability($user_id, 'detailed_profile');
     }
-    
+
     // Grant based on website
     if (!empty($user->user_url)) {
         $manager->grantCapability($user_id, 'has_website');
@@ -413,30 +413,30 @@ add_action('profile_update', function($user_id) {
 ```php
 // Manage customer permissions
 class CustomerPermissions {
-    
+
     public static function upgradeToVip($user_id) {
         $manager = wppermission()->getUserPermissionManager();
-        
+
         // Remove regular customer role
         $manager->removeRole($user_id, 'customer');
-        
+
         // Assign VIP role
         $manager->assignRole($user_id, 'vip_customer');
-        
+
         // Grant special capabilities
         $manager->grantCapability($user_id, 'early_access');
         $manager->grantCapability($user_id, 'premium_support');
         $manager->grantCapability($user_id, 'exclusive_discounts');
     }
-    
+
     public static function handleOrderCompletion($user_id, $order_total) {
         $manager = wppermission()->getUserPermissionManager();
-        
+
         // High-value customer perks
         if ($order_total > 1000) {
             $manager->grantCapability($user_id, 'high_value_customer');
         }
-        
+
         // Loyalty points capability
         if (get_user_meta($user_id, 'total_orders', true) > 10) {
             $manager->grantCapability($user_id, 'loyalty_member');
@@ -450,7 +450,7 @@ class CustomerPermissions {
 ### Permission Management
 
 - **Principle of Least Privilege**: Grant minimal necessary permissions
-- **Regular Audits**: Review user permissions periodically  
+- **Regular Audits**: Review user permissions periodically
 - **Role-Based Approach**: Prefer roles over direct capabilities
 - **Documentation**: Document special permission grants
 
@@ -522,6 +522,6 @@ add_action('wp_permission_role_assigned', function($user_id, $role) {
 ## Next Steps
 
 - [Learn about Middleware](middleware.md)
-- [Explore Role Management](roles.md)  
+- [Explore Role Management](roles.md)
 - [Check out Capability Management](capabilities.md)
 - [Review CLI Commands](cli.md)

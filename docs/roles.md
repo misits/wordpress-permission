@@ -45,14 +45,14 @@ wppermission()->createRole('shop_manager', 'Shop Manager', [
 
 ```bash
 # Basic role
-wp wppermission role:create shop_manager "Shop Manager"
+wp borps permission:role-create shop_manager "Shop Manager"
 
 # With capabilities
-wp wppermission role:create product_editor "Product Editor" \
+wp borps permission:role-create product_editor "Product Editor" \
   --capabilities="edit_posts,publish_posts,manage_products"
 
 # Clone existing role
-wp wppermission role:create custom_editor "Custom Editor" \
+wp borps permission:role-create custom_editor "Custom Editor" \
   --clone=editor
 ```
 
@@ -95,10 +95,10 @@ $manager->removeCapability('guest_author', 'delete_posts');
 
 ```bash
 # Clone editor role
-wp wppermission role:clone editor content_manager "Content Manager"
+wp borps permission:role-clone editor content_manager "Content Manager"
 
 # Clone administrator for backup
-wp wppermission role:clone administrator super_admin "Super Administrator"
+wp borps permission:role-clone administrator super_admin "Super Administrator"
 ```
 
 ## Managing Role Capabilities
@@ -136,12 +136,12 @@ if ($manager->hasCapability('shop_manager', 'manage_options')) {
 
 ```bash
 # Add capability to role
-wp wppermission role:add-cap editor manage_products
-wp wppermission role:add-cap shop_manager view_analytics
+wp borps permission:role-add-cap editor manage_products
+wp borps permission:role-add-cap shop_manager view_analytics
 
 # Remove capability from role
-wp wppermission role:remove-cap editor delete_posts
-wp wppermission role:remove-cap shop_manager manage_options
+wp borps permission:role-remove-cap editor delete_posts
+wp borps permission:role-remove-cap shop_manager manage_options
 ```
 
 ## Querying Roles
@@ -180,19 +180,19 @@ $user_count = count(get_users(['role' => 'shop_manager']));
 
 ```bash
 # List all roles
-wp wppermission role:list
+wp borps permission:role-list
 
 # Filter by type
-wp wppermission role:list --type=custom
-wp wppermission role:list --type=default
+wp borps permission:role-list --type=custom
+wp borps permission:role-list --type=default
 
 # Different output formats
-wp wppermission role:list --format=json
-wp wppermission role:list --format=csv
+wp borps permission:role-list --format=json
+wp borps permission:role-list --format=csv
 
 # Detailed role information
-wp wppermission role:info shop_manager
-wp wppermission role:info editor --show-capabilities
+wp borps permission:role-info shop_manager
+wp borps permission:role-info editor --show-capabilities
 ```
 
 ## Deleting Roles
@@ -212,13 +212,13 @@ if ($manager->delete('old_role')) {
 
 ```bash
 # Delete with confirmation
-wp wppermission role:delete shop_manager
+wp borps permission:role-delete shop_manager
 
 # Skip confirmation
-wp wppermission role:delete shop_manager --yes
+wp borps permission:role-delete shop_manager --yes
 ```
 
-**Important**: 
+**Important**:
 - Cannot delete WordPress default roles
 - Users with deleted roles lose those permissions
 - Consider reassigning users before deletion
@@ -237,7 +237,7 @@ WordPress doesn't have built-in role hierarchy, but capabilities create implicit
 // - Content management capabilities
 // - Cannot manage users or settings
 
-// Author  
+// Author
 // - Can create and edit own posts
 // - Cannot edit others' content
 
@@ -255,19 +255,19 @@ WordPress doesn't have built-in role hierarchy, but capabilities create implicit
 // Create hierarchical roles
 function create_content_hierarchy() {
     $manager = wppermission()->getRoleManager();
-    
+
     // Content Viewer (lowest)
     $manager->create('content_viewer', 'Content Viewer', [
         'read' => true
     ]);
-    
+
     // Content Editor
     $manager->create('content_editor', 'Content Editor', [
         'read' => true,
         'edit_posts' => true,
         'publish_posts' => true
     ]);
-    
+
     // Content Manager (highest)
     $manager->create('content_manager', 'Content Manager', [
         'read' => true,
@@ -286,10 +286,10 @@ function create_content_hierarchy() {
 
 ```php
 class RoleTemplates {
-    
+
     public static function createEcommerceRoles() {
         $manager = wppermission()->getRoleManager();
-        
+
         // Shop Manager
         $manager->create('shop_manager', 'Shop Manager', [
             'read' => true,
@@ -299,14 +299,14 @@ class RoleTemplates {
             'manage_orders' => true,
             'manage_inventory' => true
         ]);
-        
+
         // Product Editor
         $manager->create('product_editor', 'Product Editor', [
             'read' => true,
             'manage_products' => true,
             'edit_posts' => true
         ]);
-        
+
         // Customer Support
         $manager->create('customer_support', 'Customer Support', [
             'read' => true,
@@ -315,10 +315,10 @@ class RoleTemplates {
             'contact_customers' => true
         ]);
     }
-    
+
     public static function createContentRoles() {
         $manager = wppermission()->getRoleManager();
-        
+
         // Content Moderator
         $manager->create('content_moderator', 'Content Moderator', [
             'read' => true,
@@ -327,7 +327,7 @@ class RoleTemplates {
             'moderate_comments' => true,
             'edit_published_posts' => true
         ]);
-        
+
         // SEO Specialist
         $manager->create('seo_specialist', 'SEO Specialist', [
             'read' => true,
@@ -401,12 +401,12 @@ if (class_exists('WooCommerce')) {
 // Modify role capabilities based on conditions
 add_action('init', function() {
     $manager = wppermission()->getRoleManager();
-    
+
     // Add seasonal capabilities
     if (is_holiday_season()) {
         $manager->addCapability('shop_manager', 'manage_promotions');
     }
-    
+
     // Add capabilities based on license
     if (has_premium_license()) {
         $manager->addCapability('editor', 'advanced_editing');
@@ -418,34 +418,34 @@ add_action('init', function() {
 
 ```php
 class RoleBackup {
-    
+
     public static function backup($role) {
         $manager = wppermission()->getRoleManager();
         $capabilities = $manager->getCapabilities($role);
-        
+
         update_option("role_backup_{$role}", [
             'capabilities' => $capabilities,
             'display_name' => $manager->getDisplayName($role),
             'backup_date' => current_time('mysql')
         ]);
     }
-    
+
     public static function restore($role) {
         $backup = get_option("role_backup_{$role}");
         if (!$backup) return false;
-        
+
         $manager = wppermission()->getRoleManager();
-        
+
         // Remove current role
         $manager->delete($role);
-        
+
         // Recreate from backup
         $manager->create(
             $role,
             $backup['display_name'],
             $backup['capabilities']
         );
-        
+
         return true;
     }
 }
@@ -460,10 +460,10 @@ class RoleBackup {
 add_action('membership_level_changed', function($user_id, $new_level) {
     $role_map = [
         'bronze' => 'basic_member',
-        'silver' => 'premium_member', 
+        'silver' => 'premium_member',
         'gold' => 'vip_member'
     ];
-    
+
     if (isset($role_map[$new_level])) {
         wppermission()->getUserPermissionManager()
             ->setRole($user_id, $role_map[$new_level]);

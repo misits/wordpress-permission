@@ -29,9 +29,9 @@ class RoleCommand extends \WP_CLI_Command
      *
      * ## EXAMPLES
      *
-     *     wp wppermission role:create shop_manager "Shop Manager"
-     *     wp wppermission role:create product_editor "Product Editor" --capabilities="edit_posts,publish_posts"
-     *     wp wppermission role:create custom_editor "Custom Editor" --clone=editor
+     *     wp borps permission:role-create shop_manager "Shop Manager"
+     *     wp borps permission:role-create product_editor "Product Editor" --capabilities="edit_posts,publish_posts"
+     *     wp borps permission:role-create custom_editor "Custom Editor" --clone=editor
      *
      * @when after_wp_load
      */
@@ -95,8 +95,8 @@ class RoleCommand extends \WP_CLI_Command
      *
      * ## EXAMPLES
      *
-     *     wp wppermission role:delete shop_manager
-     *     wp wppermission role:delete shop_manager --yes
+     *     wp borps permission:role-delete shop_manager
+     *     wp borps permission:role-delete shop_manager --yes
      *
      * @when after_wp_load
      */
@@ -151,8 +151,8 @@ class RoleCommand extends \WP_CLI_Command
      *
      * ## EXAMPLES
      *
-     *     wp wppermission role:clone editor content_editor "Content Editor"
-     *     wp wppermission role:clone administrator super_admin "Super Administrator"
+     *     wp borps permission:role-clone editor content_editor "Content Editor"
+     *     wp borps permission:role-clone administrator super_admin "Super Administrator"
      *
      * @when after_wp_load
      */
@@ -194,9 +194,9 @@ class RoleCommand extends \WP_CLI_Command
      *
      * ## EXAMPLES
      *
-     *     wp wppermission role:list
-     *     wp wppermission role:list --type=custom
-     *     wp wppermission role:list --format=json
+     *     wp borps permission:role-list
+     *     wp borps permission:role-list --type=custom
+     *     wp borps permission:role-list --format=json
      *
      * @when after_wp_load
      */
@@ -266,8 +266,8 @@ class RoleCommand extends \WP_CLI_Command
      *
      * ## EXAMPLES
      *
-     *     wp wppermission role:info editor
-     *     wp wppermission role:info shop_manager --show-capabilities --format=json
+     *     wp borps permission:role-info editor
+     *     wp borps permission:role-info shop_manager --show-capabilities --format=json
      *
      * @when after_wp_load
      */
@@ -322,8 +322,8 @@ class RoleCommand extends \WP_CLI_Command
      *
      * ## EXAMPLES
      *
-     *     wp wppermission role:add-cap editor manage_products
-     *     wp wppermission role:add-cap shop_manager view_analytics
+     *     wp borps permission:role-add-cap editor manage_products
+     *     wp borps permission:role-add-cap shop_manager view_analytics
      *
      * @when after_wp_load
      */
@@ -368,8 +368,8 @@ class RoleCommand extends \WP_CLI_Command
      *
      * ## EXAMPLES
      *
-     *     wp wppermission role:remove-cap editor delete_posts
-     *     wp wppermission role:remove-cap shop_manager manage_options
+     *     wp borps permission:role-remove-cap editor delete_posts
+     *     wp borps permission:role-remove-cap shop_manager manage_options
      *
      * @when after_wp_load
      */

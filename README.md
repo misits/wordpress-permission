@@ -33,7 +33,7 @@ if (can('manage_products')) {
 }
 
 if (has_role('shop_manager')) {
-    // User is a shop manager  
+    // User is a shop manager
 }
 
 // Grant/revoke capabilities
@@ -116,23 +116,23 @@ Powerful command-line tools for permission management:
 
 ```bash
 # Capability management
-wp wppermission capability:create manage_products --description="Manage product catalog"
-wp wppermission capability:list --type=custom --format=json
-wp wppermission capability:info manage_products
+wp borps permission:capability-create manage_products --description="Manage product catalog"
+wp borps permission:capability-list --type=custom --format=json
+wp borps permission:capability-info manage_products
 
-# Role management  
-wp wppermission role:create shop_manager "Shop Manager" --capabilities="edit_posts,manage_products"
-wp wppermission role:clone editor content_editor "Content Editor"
-wp wppermission role:list --type=custom
+# Role management
+wp borps permission:role-create shop_manager "Shop Manager" --capabilities="edit_posts,manage_products"
+wp borps permission:role-clone editor content_editor "Content Editor"
+wp borps permission:role-list --type=custom
 
 # User management
-wp wppermission user:grant admin manage_products
-wp wppermission user:assign-role user123 shop_manager
-wp wppermission user:bulk-grant view_analytics --role=editor
+wp borps permission:user-grant admin manage_products
+wp borps permission:user-assign-role user123 shop_manager
+wp borps permission:user-bulk-grant view_analytics --role=editor
 
 # Get help
-wp wppermission help
-wp help wppermission capability:create
+wp borps permission:help
+wp help borps permission:capability-create
 ```
 
 ## Integration with Other Libraries
