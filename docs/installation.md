@@ -80,7 +80,7 @@ echo 'Version: ' . WPPERMISSION_VERSION;
 
 ```bash
 # List available commands
-wp borps permission:help
+wp permission:help
 ```
 
 ## Quick Setup
@@ -98,7 +98,7 @@ if (can('manage_products')) {
 
 ```bash
 # Via WP-CLI
-wp borps permission:capability-create manage_products --description="Manage product catalog"
+wp permission:capability-create manage_products --description="Manage product catalog"
 
 # Or via PHP
 wppermission()->createCapability('manage_products', 'Manage product catalog', 'ecommerce');
@@ -108,7 +108,7 @@ wppermission()->createCapability('manage_products', 'Manage product catalog', 'e
 
 ```bash
 # Via WP-CLI
-wp borps permission:role-create shop_manager "Shop Manager" --capabilities="edit_posts,manage_products"
+wp permission:role-create shop_manager "Shop Manager" --capabilities="edit_posts,manage_products"
 
 # Or via PHP
 wppermission()->createRole('shop_manager', 'Shop Manager', [
@@ -121,7 +121,7 @@ wppermission()->createRole('shop_manager', 'Shop Manager', [
 
 ```bash
 # Via WP-CLI
-wp borps permission:user-grant admin manage_products
+wp permission:user-grant admin manage_products
 
 # Or via PHP
 grant('manage_products', $user_id);
@@ -216,16 +216,16 @@ If you need to reset custom permissions:
 
 ```bash
 # List all custom capabilities
-wp borps permission:capability-list --type=custom
+wp permission:capability-list --type=custom
 
 # Delete specific capability
-wp borps permission:capability-delete old_capability --yes
+wp permission:capability-delete old_capability --yes
 
 # List all custom roles
-wp borps permission:role-list --type=custom
+wp permission:role-list --type=custom
 
 # Delete specific role
-wp borps permission:role-delete old_role --yes
+wp permission:role-delete old_role --yes
 ```
 
 ## Performance Considerations

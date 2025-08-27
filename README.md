@@ -116,23 +116,23 @@ Powerful command-line tools for permission management:
 
 ```bash
 # Capability management
-wp borps permission:capability-create manage_products --description="Manage product catalog"
-wp borps permission:capability-list --type=custom --format=json
-wp borps permission:capability-info manage_products
+wp permission:capability-create manage_products --description="Manage product catalog"
+wp permission:capability-list --type=custom --format=json
+wp permission:capability-info manage_products
 
 # Role management
-wp borps permission:role-create shop_manager "Shop Manager" --capabilities="edit_posts,manage_products"
-wp borps permission:role-clone editor content_editor "Content Editor"
-wp borps permission:role-list --type=custom
+wp permission:role-create shop_manager "Shop Manager" --capabilities="edit_posts,manage_products"
+wp permission:role-clone editor content_editor "Content Editor"
+wp permission:role-list --type=custom
 
 # User management
-wp borps permission:user-grant admin manage_products
-wp borps permission:user-assign-role user123 shop_manager
-wp borps permission:user-bulk-grant view_analytics --role=editor
+wp permission:user-grant admin manage_products
+wp permission:user-assign-role user123 shop_manager
+wp permission:user-bulk-grant view_analytics --role=editor
 
 # Get help
-wp borps permission:help
-wp help borps permission:capability-create
+wp permission:help
+wp help permission:capability-create
 ```
 
 ## Integration with Other Libraries

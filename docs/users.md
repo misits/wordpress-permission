@@ -85,15 +85,15 @@ if ($manager->userCan(123, 'manage_products')) {
 
 ```bash
 # Grant capability to specific user
-wp borps permission:user-grant admin manage_products
-wp borps permission:user-grant 123 view_analytics
-wp borps permission:user-grant user@example.com edit_others_posts
+wp permission:user-grant admin manage_products
+wp permission:user-grant 123 view_analytics
+wp permission:user-grant user@example.com edit_others_posts
 
 # Bulk grant to multiple users
-wp borps permission:user-bulk-grant manage_products --users="admin,editor,123"
+wp permission:user-bulk-grant manage_products --users="admin,editor,123"
 
 # Grant to all users with specific role
-wp borps permission:user-bulk-grant view_analytics --role=editor
+wp permission:user-bulk-grant view_analytics --role=editor
 ```
 
 ## Revoking Capabilities
@@ -117,8 +117,8 @@ foreach ($capabilities as $cap) {
 
 ```bash
 # Revoke capability from user
-wp borps permission:user-revoke admin delete_users
-wp borps permission:user-revoke 123 manage_products
+wp permission:user-revoke admin delete_users
+wp permission:user-revoke 123 manage_products
 ```
 
 **Note**: This only removes directly granted capabilities, not those inherited from roles.
@@ -159,18 +159,18 @@ $current_roles = $user->roles;
 
 ```bash
 # Assign role to user
-wp borps permission:user-assign-role admin shop_manager
-wp borps permission:user-assign-role 123 editor
+wp permission:user-assign-role admin shop_manager
+wp permission:user-assign-role 123 editor
 
 # Replace all existing roles
-wp borps permission:user-assign-role admin shop_manager --replace
+wp permission:user-assign-role admin shop_manager --replace
 
 # Remove role from user
-wp borps permission:user-remove-role admin editor
-wp borps permission:user-remove-role 123 shop_manager
+wp permission:user-remove-role admin editor
+wp permission:user-remove-role 123 shop_manager
 
 # Bulk assign role to multiple users
-wp borps permission:user-bulk-assign shop_manager "admin,editor,123"
+wp permission:user-bulk-assign shop_manager "admin,editor,123"
 ```
 
 ## User Information and Analysis
@@ -211,13 +211,13 @@ $comparison = $manager->compareUsers(123, 456);
 
 ```bash
 # Get detailed user information
-wp borps permission:user-info admin
-wp borps permission:user-info 123 --show-capabilities
-wp borps permission:user-info user@example.com --format=json
+wp permission:user-info admin
+wp permission:user-info 123 --show-capabilities
+wp permission:user-info user@example.com --format=json
 
 # Compare two users
-wp borps permission:user-compare admin editor
-wp borps permission:user-compare 123 456 --format=json
+wp permission:user-compare admin editor
+wp permission:user-compare 123 456 --format=json
 ```
 
 ## Bulk Operations
@@ -257,12 +257,12 @@ $shop_managers = $manager->getUsersByRole('shop_manager');
 
 ```bash
 # Bulk operations with dry-run
-wp borps permission:user-bulk-grant manage_products --role=editor --dry-run
-wp borps permission:user-bulk-assign shop_manager "user1,user2,user3" --dry-run
+wp permission:user-bulk-grant manage_products --role=editor --dry-run
+wp permission:user-bulk-assign shop_manager "user1,user2,user3" --dry-run
 
 # Execute bulk operations
-wp borps permission:user-bulk-grant view_analytics --role=editor
-wp borps permission:user-bulk-assign contributor "new_user1,new_user2"
+wp permission:user-bulk-grant view_analytics --role=editor
+wp permission:user-bulk-assign contributor "new_user1,new_user2"
 ```
 
 ## Advanced User Management

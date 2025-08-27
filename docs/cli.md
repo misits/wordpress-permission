@@ -4,7 +4,7 @@ Complete reference for wp-permission WP-CLI commands.
 
 ## Overview
 
-The wp-permission library provides comprehensive WP-CLI commands for managing capabilities, roles, and user permissions. All commands are available under the `borps permission:` namespace.
+The wp-permission library provides comprehensive WP-CLI commands for managing capabilities, roles, and user permissions. All commands are available under the `permission:` namespace.
 
 ## Getting Started
 
@@ -12,14 +12,14 @@ The wp-permission library provides comprehensive WP-CLI commands for managing ca
 
 ```bash
 # Verify wp-permission is loaded
-wp borps permission:help
+wp permission:help
 ```
 
 ### Command Structure
 
 All commands follow this pattern:
 ```bash
-wp borps permission: <category>-<action> [arguments] [options]
+wp permission: <category>-<action> [arguments] [options]
 ```
 
 Categories:
@@ -33,15 +33,15 @@ Categories:
 
 ```bash
 # Basic capability creation
-wp borps permission:capability-create manage_products
+wp permission:capability-create manage_products
 
 # With description and group
-wp borps permission:capability-create view_analytics \
+wp permission:capability-create view_analytics \
   --description="Access analytics dashboard" \
   --group="analytics"
 
 # Multiple capabilities at once
-wp borps permission:capability-create manage_inventory \
+wp permission:capability-create manage_inventory \
   --description="Manage product inventory" \
   --group="ecommerce"
 ```
@@ -50,42 +50,42 @@ wp borps permission:capability-create manage_inventory \
 
 ```bash
 # List all capabilities
-wp borps permission:capability-list
+wp permission:capability-list
 
 # Filter by type
-wp borps permission:capability-list --type=custom
-wp borps permission:capability-list --type=default
+wp permission:capability-list --type=custom
+wp permission:capability-list --type=default
 
 # Filter by group
-wp borps permission:capability-list --group=analytics
+wp permission:capability-list --group=analytics
 
 # Different output formats
-wp borps permission:capability-list --format=json
-wp borps permission:capability-list --format=csv
-wp borps permission:capability-list --format=yaml
+wp permission:capability-list --format=json
+wp permission:capability-list --format=csv
+wp permission:capability-list --format=yaml
 ```
 
 ### Capability Information
 
 ```bash
 # Get detailed capability info
-wp borps permission:capability-info manage_products
+wp permission:capability-info manage_products
 
 # Usage statistics
-wp borps permission: capability:stats manage_products
+wp permission: capability:stats manage_products
 
 # JSON output for automation
-wp borps permission:capability-info edit_posts --format=json
+wp permission:capability-info edit_posts --format=json
 ```
 
 ### Delete Capabilities
 
 ```bash
 # Delete with confirmation
-wp borps permission:capability-delete old_capability
+wp permission:capability-delete old_capability
 
 # Skip confirmation
-wp borps permission:capability-delete old_capability --yes
+wp permission:capability-delete old_capability --yes
 
 # Note: Cannot delete WordPress default capabilities
 ```
@@ -96,14 +96,14 @@ wp borps permission:capability-delete old_capability --yes
 
 ```bash
 # Basic role creation
-wp borps permission:role-create shop_manager "Shop Manager"
+wp permission:role-create shop_manager "Shop Manager"
 
 # With initial capabilities
-wp borps permission:role-create product_editor "Product Editor" \
+wp permission:role-create product_editor "Product Editor" \
   --capabilities="edit_posts,publish_posts,manage_products"
 
 # Clone existing role
-wp borps permission:role-create custom_editor "Custom Editor" \
+wp permission:role-create custom_editor "Custom Editor" \
   --clone=editor
 ```
 
@@ -111,60 +111,60 @@ wp borps permission:role-create custom_editor "Custom Editor" \
 
 ```bash
 # Clone with new name
-wp borps permission:role-clone editor content_manager "Content Manager"
+wp permission:role-clone editor content_manager "Content Manager"
 
 # Clone administrator for backup
-wp borps permission:role-clone administrator super_admin "Super Administrator"
+wp permission:role-clone administrator super_admin "Super Administrator"
 ```
 
 ### List Roles
 
 ```bash
 # List all roles
-wp borps permission:role-list
+wp permission:role-list
 
 # Filter by type
-wp borps permission:role-list --type=custom
-wp borps permission:role-list --type=default
+wp permission:role-list --type=custom
+wp permission:role-list --type=default
 
 # Different formats
-wp borps permission:role-list --format=table
-wp borps permission:role-list --format=json
+wp permission:role-list --format=table
+wp permission:role-list --format=json
 ```
 
 ### Role Information
 
 ```bash
 # Basic role info
-wp borps permission:role-info shop_manager
+wp permission:role-info shop_manager
 
 # Show all capabilities
-wp borps permission:role-info editor --show-capabilities
+wp permission:role-info editor --show-capabilities
 
 # JSON output
-wp borps permission:role-info administrator --format=json
+wp permission:role-info administrator --format=json
 ```
 
 ### Manage Role Capabilities
 
 ```bash
 # Add capability to role
-wp borps permission:role-add-cap editor manage_products
-wp borps permission:role-add-cap shop_manager view_analytics
+wp permission:role-add-cap editor manage_products
+wp permission:role-add-cap shop_manager view_analytics
 
 # Remove capability from role
-wp borps permission:role-remove-cap editor delete_posts
-wp borps permission:role-remove-cap shop_manager manage_options
+wp permission:role-remove-cap editor delete_posts
+wp permission:role-remove-cap shop_manager manage_options
 ```
 
 ### Delete Roles
 
 ```bash
 # Delete with confirmation
-wp borps permission:role-delete shop_manager
+wp permission:role-delete shop_manager
 
 # Skip confirmation
-wp borps permission:role-delete old_role --yes
+wp permission:role-delete old_role --yes
 
 # Note: Cannot delete WordPress default roles
 ```
@@ -175,19 +175,19 @@ wp borps permission:role-delete old_role --yes
 
 ```bash
 # Grant capability to user
-wp borps permission:user-grant admin manage_products
-wp borps permission:user-grant 123 view_analytics
-wp borps permission:user-grant user@example.com edit_others_posts
+wp permission:user-grant admin manage_products
+wp permission:user-grant 123 view_analytics
+wp permission:user-grant user@example.com edit_others_posts
 
 # Bulk grant to multiple users
-wp borps permission:user-bulk-grant manage_products \
+wp permission:user-bulk-grant manage_products \
   --users="admin,editor,123"
 
 # Grant to all users with specific role
-wp borps permission:user-bulk-grant view_analytics --role=editor
+wp permission:user-bulk-grant view_analytics --role=editor
 
 # Dry run to preview changes
-wp borps permission:user-bulk-grant manage_products \
+wp permission:user-bulk-grant manage_products \
   --role=shop_manager --dry-run
 ```
 
@@ -195,55 +195,55 @@ wp borps permission:user-bulk-grant manage_products \
 
 ```bash
 # Revoke capability from user
-wp borps permission:user-revoke admin delete_users
-wp borps permission:user-revoke 123 manage_products
+wp permission:user-revoke admin delete_users
+wp permission:user-revoke 123 manage_products
 ```
 
 ### Role Assignment
 
 ```bash
 # Assign role to user
-wp borps permission:user-assign-role admin shop_manager
-wp borps permission:user-assign-role 123 editor
+wp permission:user-assign-role admin shop_manager
+wp permission:user-assign-role 123 editor
 
 # Replace all existing roles
-wp borps permission:user-assign-role admin shop_manager --replace
+wp permission:user-assign-role admin shop_manager --replace
 
 # Remove role from user
-wp borps permission:user-remove-role admin editor
-wp borps permission:user-remove-role 123 shop_manager
+wp permission:user-remove-role admin editor
+wp permission:user-remove-role 123 shop_manager
 
 # Bulk assign role to multiple users
-wp borps permission:user-bulk-assign shop_manager "admin,editor,123"
+wp permission:user-bulk-assign shop_manager "admin,editor,123"
 
 # Dry run bulk assignment
-wp borps permission:user-bulk-assign contributor "user1,user2" --dry-run
+wp permission:user-bulk-assign contributor "user1,user2" --dry-run
 ```
 
 ### User Information
 
 ```bash
 # Get user permission summary
-wp borps permission:user-info admin
-wp borps permission:user-info 123
-wp borps permission:user-info user@example.com
+wp permission:user-info admin
+wp permission:user-info 123
+wp permission:user-info user@example.com
 
 # Show all capabilities
-wp borps permission:user-info admin --show-capabilities
+wp permission:user-info admin --show-capabilities
 
 # JSON output for automation
-wp borps permission:user-info 123 --format=json
+wp permission:user-info 123 --format=json
 ```
 
 ### Compare Users
 
 ```bash
 # Compare capabilities between users
-wp borps permission:user-compare admin editor
-wp borps permission:user-compare 123 456
+wp permission:user-compare admin editor
+wp permission:user-compare 123 456
 
 # JSON output for detailed analysis
-wp borps permission:user-compare admin editor --format=json
+wp permission:user-compare admin editor --format=json
 ```
 
 ## Global Options
@@ -270,14 +270,14 @@ Most commands support these global options:
 
 ```bash
 # Get all custom capabilities as JSON
-wp borps permission:capability-list --type=custom --format=json
+wp permission:capability-list --type=custom --format=json
 
 # Delete multiple roles without confirmation
-wp borps permission:role-delete old_role1 --yes
-wp borps permission:role-delete old_role2 --yes
+wp permission:role-delete old_role1 --yes
+wp permission:role-delete old_role2 --yes
 
 # Preview bulk user assignment
-wp borps permission:user-bulk-assign shop_manager "user1,user2,user3" --dry-run
+wp permission:user-bulk-assign shop_manager "user1,user2,user3" --dry-run
 ```
 
 ## Automation Examples
@@ -289,14 +289,14 @@ wp borps permission:user-bulk-assign shop_manager "user1,user2,user3" --dry-run
 # Backup custom capabilities and roles
 
 # Export custom capabilities
-wp borps permission:capability-list --type=custom --format=json > capabilities_backup.json
+wp permission:capability-list --type=custom --format=json > capabilities_backup.json
 
 # Export custom roles
-wp borps permission:role-list --type=custom --format=json > roles_backup.json
+wp permission:role-list --type=custom --format=json > roles_backup.json
 
 # Export user permission summaries
 wp user list --format=csv --fields=ID | tail -n +2 | while read user_id; do
-  wp borps permission:user-info $user_id --format=json >> users_backup.jsonl
+  wp permission:user-info $user_id --format=json >> users_backup.jsonl
 done
 ```
 
@@ -307,19 +307,19 @@ done
 # Setup e-commerce permissions
 
 # Create capabilities
-wp borps permission:capability-create manage_products \
+wp permission:capability-create manage_products \
   --description="Manage product catalog" --group="ecommerce"
-wp borps permission:capability-create manage_orders \
+wp permission:capability-create manage_orders \
   --description="Manage customer orders" --group="ecommerce"
-wp borps permission:capability-create view_analytics \
+wp permission:capability-create view_analytics \
   --description="View analytics dashboard" --group="analytics"
 
 # Create roles
-wp borps permission:role-create shop_manager "Shop Manager" \
+wp permission:role-create shop_manager "Shop Manager" \
   --capabilities="edit_posts,manage_products,manage_orders,view_analytics"
 
 # Assign roles to existing users
-wp borps permission:user-bulk-assign shop_manager "admin,manager1,manager2"
+wp permission:user-bulk-assign shop_manager "admin,manager1,manager2"
 ```
 
 ### Cleanup Scripts
@@ -329,12 +329,12 @@ wp borps permission:user-bulk-assign shop_manager "admin,manager1,manager2"
 # Clean up old permissions
 
 # Remove deprecated capabilities
-wp borps permission:capability-delete old_capability_1 --yes
-wp borps permission:capability-delete old_capability_2 --yes
+wp permission:capability-delete old_capability_1 --yes
+wp permission:capability-delete old_capability_2 --yes
 
 # Remove deprecated roles
-wp borps permission:role-delete old_role_1 --yes
-wp borps permission:role-delete old_role_2 --yes
+wp permission:role-delete old_role_1 --yes
+wp permission:role-delete old_role_2 --yes
 ```
 
 ## Scripting and Integration
@@ -351,15 +351,15 @@ Commands return standard exit codes:
 
 ```bash
 # Get capability count by group
-wp borps permission:capability-list --format=json | \
+wp permission:capability-list --format=json | \
   jq 'group_by(.group) | map({group: .[0].group, count: length})'
 
 # List users with specific capability
-wp borps permission: capability:stats manage_products --format=json | \
+wp permission: capability:stats manage_products --format=json | \
   jq '.users_with_capability[]'
 
 # Find roles with most capabilities
-wp borps permission:role-list --format=json | \
+wp permission:role-list --format=json | \
   jq 'sort_by(.capabilities) | reverse | .[0:5]'
 ```
 
@@ -367,13 +367,13 @@ wp borps permission:role-list --format=json | \
 
 ```bash
 # Export role assignments for spreadsheet
-wp borps permission:role-list --format=csv > roles.csv
+wp permission:role-list --format=csv > roles.csv
 
 # Export user permissions summary
 wp user list --format=csv --fields=ID,user_login | \
   tail -n +2 | while IFS=, read user_id username; do
     echo -n "$user_id,$username,"
-    wp borps permission:user-info $user_id --format=json | \
+    wp permission:user-info $user_id --format=json | \
       jq -r '.capability_count'
   done > user_permissions.csv
 ```
@@ -404,7 +404,7 @@ wp db check
 **Output formatting issues**
 ```bash
 # Use different format if table is broken
-wp borps permission:capability-list --format=json
+wp permission:capability-list --format=json
 
 # Check for shell encoding issues
 export LANG=en_US.UTF-8
@@ -414,10 +414,10 @@ export LANG=en_US.UTF-8
 
 ```bash
 # Enable WP-CLI debug mode
-wp --debug borps permission:capability-list
+wp --debug permission:capability-list
 
 # Verbose output
-wp --verbose borps permission:user-grant admin manage_products
+wp --verbose permission:user-grant admin manage_products
 ```
 
 ### Performance for Large Sites
@@ -430,7 +430,7 @@ wp user list --number=100 --offset=0
 for i in {0..10}; do
   offset=$((i * 100))
   wp user list --number=100 --offset=$offset --format=ids | \
-    xargs -I {} wp borps permission:user-info {}
+    xargs -I {} wp permission:user-info {}
 done
 ```
 
@@ -450,7 +450,7 @@ $capabilities = [
 ];
 
 foreach ($capabilities as $cap => $data) {
-    WP_CLI::runcommand("borps permission: capability:create {$cap} --description='{$data['description']}' --group='{$data['group']}'");
+    WP_CLI::runcommand("permission: capability:create {$cap} --description='{$data['description']}' --group='{$data['group']}'");
 }
 
 WP_CLI::success('Permission structure created');
@@ -464,7 +464,7 @@ WP_CLI::success('Permission structure created');
 # Monitor permission changes
 
 # Check for new capabilities
-CURRENT_CAPS=$(wp borps permission:capability-list --type=custom --format=json | jq length)
+CURRENT_CAPS=$(wp permission:capability-list --type=custom --format=json | jq length)
 echo "Current custom capabilities: $CURRENT_CAPS"
 
 # Check for users with admin privileges

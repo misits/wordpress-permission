@@ -26,8 +26,8 @@ class CapabilityCommand extends \WP_CLI_Command
      *
      * ## EXAMPLES
      *
-     *     wp borps permission:capability-create manage_products
-     *     wp borps permission:capability-create view_analytics --description="View analytics dashboard" --group="analytics"
+     *     wp permission:capability-create manage_products
+     *     wp permission:capability-create view_analytics --description="View analytics dashboard" --group="analytics"
      *
      * @when after_wp_load
      */
@@ -65,8 +65,8 @@ class CapabilityCommand extends \WP_CLI_Command
      *
      * ## EXAMPLES
      *
-     *     wp borps permission:capability-delete manage_products
-     *     wp borps permission:capability-delete manage_products --yes
+     *     wp permission:capability-delete manage_products
+     *     wp permission:capability-delete manage_products --yes
      *
      * @when after_wp_load
      */
@@ -119,9 +119,9 @@ class CapabilityCommand extends \WP_CLI_Command
      *
      * ## EXAMPLES
      *
-     *     wp borps permission:capability-list
-     *     wp borps permission:capability-list --group=custom
-     *     wp borps permission:capability-list --type=default --format=json
+     *     wp permission:capability-list
+     *     wp permission:capability-list --group=custom
+     *     wp permission:capability-list --type=default --format=json
      *
      * @when after_wp_load
      */
@@ -182,8 +182,8 @@ class CapabilityCommand extends \WP_CLI_Command
      *
      * ## EXAMPLES
      *
-     *     wp borps permission:capability-info manage_products
-     *     wp borps permission:capability-info edit_posts --format=json
+     *     wp permission:capability-info manage_products
+     *     wp permission:capability-info edit_posts --format=json
      *
      * @when after_wp_load
      */
@@ -237,8 +237,8 @@ class CapabilityCommand extends \WP_CLI_Command
      *
      * ## EXAMPLES
      *
-     *     wp borps permission:capability-stats edit_posts
-     *     wp borps permission:capability-stats manage_products --format=json
+     *     wp permission:capability-stats edit_posts
+     *     wp permission:capability-stats manage_products --format=json
      *
      * @when after_wp_load
      */

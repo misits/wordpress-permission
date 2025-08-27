@@ -45,14 +45,14 @@ wppermission()->createRole('shop_manager', 'Shop Manager', [
 
 ```bash
 # Basic role
-wp borps permission:role-create shop_manager "Shop Manager"
+wp permission:role-create shop_manager "Shop Manager"
 
 # With capabilities
-wp borps permission:role-create product_editor "Product Editor" \
+wp permission:role-create product_editor "Product Editor" \
   --capabilities="edit_posts,publish_posts,manage_products"
 
 # Clone existing role
-wp borps permission:role-create custom_editor "Custom Editor" \
+wp permission:role-create custom_editor "Custom Editor" \
   --clone=editor
 ```
 
@@ -95,10 +95,10 @@ $manager->removeCapability('guest_author', 'delete_posts');
 
 ```bash
 # Clone editor role
-wp borps permission:role-clone editor content_manager "Content Manager"
+wp permission:role-clone editor content_manager "Content Manager"
 
 # Clone administrator for backup
-wp borps permission:role-clone administrator super_admin "Super Administrator"
+wp permission:role-clone administrator super_admin "Super Administrator"
 ```
 
 ## Managing Role Capabilities
@@ -136,12 +136,12 @@ if ($manager->hasCapability('shop_manager', 'manage_options')) {
 
 ```bash
 # Add capability to role
-wp borps permission:role-add-cap editor manage_products
-wp borps permission:role-add-cap shop_manager view_analytics
+wp permission:role-add-cap editor manage_products
+wp permission:role-add-cap shop_manager view_analytics
 
 # Remove capability from role
-wp borps permission:role-remove-cap editor delete_posts
-wp borps permission:role-remove-cap shop_manager manage_options
+wp permission:role-remove-cap editor delete_posts
+wp permission:role-remove-cap shop_manager manage_options
 ```
 
 ## Querying Roles
@@ -180,19 +180,19 @@ $user_count = count(get_users(['role' => 'shop_manager']));
 
 ```bash
 # List all roles
-wp borps permission:role-list
+wp permission:role-list
 
 # Filter by type
-wp borps permission:role-list --type=custom
-wp borps permission:role-list --type=default
+wp permission:role-list --type=custom
+wp permission:role-list --type=default
 
 # Different output formats
-wp borps permission:role-list --format=json
-wp borps permission:role-list --format=csv
+wp permission:role-list --format=json
+wp permission:role-list --format=csv
 
 # Detailed role information
-wp borps permission:role-info shop_manager
-wp borps permission:role-info editor --show-capabilities
+wp permission:role-info shop_manager
+wp permission:role-info editor --show-capabilities
 ```
 
 ## Deleting Roles
@@ -212,10 +212,10 @@ if ($manager->delete('old_role')) {
 
 ```bash
 # Delete with confirmation
-wp borps permission:role-delete shop_manager
+wp permission:role-delete shop_manager
 
 # Skip confirmation
-wp borps permission:role-delete shop_manager --yes
+wp permission:role-delete shop_manager --yes
 ```
 
 **Important**:

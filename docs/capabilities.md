@@ -51,10 +51,10 @@ wppermission()->createCapability(
 
 ```bash
 # Basic capability
-wp borps permission:capability-create manage_products
+wp permission:capability-create manage_products
 
 # With metadata
-wp borps permission:capability-create view_analytics \
+wp permission:capability-create view_analytics \
   --description="View analytics dashboard" \
   --group="analytics"
 ```
@@ -100,18 +100,18 @@ $analytics_caps = $manager->getByGroup('analytics');
 
 ```bash
 # List all capabilities
-wp borps permission:capability-list
+wp permission:capability-list
 
 # Filter by type
-wp borps permission:capability-list --type=custom
-wp borps permission:capability-list --type=default
+wp permission:capability-list --type=custom
+wp permission:capability-list --type=default
 
 # Filter by group
-wp borps permission:capability-list --group=analytics
+wp permission:capability-list --group=analytics
 
 # Different output formats
-wp borps permission:capability-list --format=json
-wp borps permission:capability-list --format=csv
+wp permission:capability-list --format=json
+wp permission:capability-list --format=csv
 ```
 
 ## Capability Information
@@ -146,10 +146,10 @@ $users = $user_manager->getUsersWithCapability('manage_products');
 
 ```bash
 # Detailed capability information
-wp borps permission:capability-info manage_products
+wp permission:capability-info manage_products
 
 # Usage statistics
-wp borps permission:capability-stats manage_products
+wp permission:capability-stats manage_products
 ```
 
 ## Capability Validation
@@ -194,10 +194,10 @@ if ($manager->delete('old_capability')) {
 
 ```bash
 # Delete with confirmation
-wp borps permission:capability-delete old_capability
+wp permission:capability-delete old_capability
 
 # Skip confirmation
-wp borps permission:capability-delete old_capability --yes
+wp permission:capability-delete old_capability --yes
 ```
 
 **Note**: You cannot delete WordPress default capabilities.
