@@ -18,7 +18,7 @@ Include WP-Permission in your WordPress theme or plugin:
 
 ```php
 // In your theme's functions.php
-require_once get_template_directory() . '/lib/wp-permission/bootstrap.php';
+require_once get_template_directory() . '/vendor/wordpress-permission/bootstrap.php';
 ```
 
 ## Zero-Configuration Setup

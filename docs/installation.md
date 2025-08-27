@@ -14,14 +14,14 @@ Complete setup guide for WordPress Permission library.
 
 ```php
 // In your theme's functions.php
-require_once get_template_directory() . '/lib/wp-permission/bootstrap.php';
+require_once get_template_directory() . '/vendor/wordpress-permission/bootstrap.php';
 ```
 
 ### Plugin Integration
 
 ```php
 // In your plugin's main file
-require_once plugin_dir_path(__FILE__) . 'lib/wp-permission/bootstrap.php';
+require_once plugin_dir_path(__FILE__) . 'vendor/wordpress-permission/bootstrap.php';
 ```
 
 ### Composer (if using Composer)
@@ -31,7 +31,7 @@ require_once plugin_dir_path(__FILE__) . 'lib/wp-permission/bootstrap.php';
 {
     "autoload": {
         "files": [
-            "lib/wp-permission/bootstrap.php"
+            "vendor/wordpress-permission/bootstrap.php"
         ]
     }
 }
